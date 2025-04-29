@@ -7,7 +7,7 @@ from sklearn import tree
 model = joblib.load("diabetes_model.pkl")
 
 # Title
-st.title("Diabetes Prediction App (Decision Tree Model + Medical Guidelines)")
+st.title("Diabetes Prediction App (Decision Tree Model)")
 
 st.write("""
 ### Welcome
@@ -16,7 +16,7 @@ This app predicts the likelihood of Diabetes based on 3 critical health indicato
 - Blood Glucose Level
 - Age
 
-It compares Machine Learning prediction with official Medical Reference guidelines.
+The prediction is powered by a trained Decision Tree machine learning model.
 """)
 
 # Input fields
@@ -36,14 +36,6 @@ if st.button("Predict"):
     # Predict with the trained Decision Tree model
     model_prediction = model.predict(input_data)[0]
 
-    # Predict using official Medical Reference guidelines
-    if hba1c_level >= 6.5 or blood_glucose >= 200:
-        medical_prediction = "High risk: Diabetic"
-    elif (5.7 <= hba1c_level < 6.5) or (140 <= blood_glucose < 200):
-        medical_prediction = "Moderate risk: Pre-Diabetic"
-    else:
-        medical_prediction = "Low risk: Likely Not Diabetic"
-
     # Display results
     st.subheader("Prediction Results")
 
@@ -52,22 +44,7 @@ if st.button("Predict"):
     else:
         st.success("Model Prediction: Low risk (Likely Not Diabetic)")
 
-    st.info(f"Medical Reference Prediction: {medical_prediction}")
-
 st.write("---")
-
-# Medical Reference Information
-st.subheader("Official Medical Reference Ranges for Diabetes Diagnosis")
-st.markdown("""
-- HbA1c < 5.7% → Normal  
-- HbA1c 5.7% – 6.4% → Pre-Diabetic  
-- HbA1c ≥ 6.5% → Diabetic  
-
-- Fasting Blood Glucose < 100 mg/dL → Normal  
-- Blood Glucose 100–125 mg/dL → Pre-Diabetic  
-- Blood Glucose ≥ 126 mg/dL → Diabetic  
-- Post-Meal Blood Glucose ≥ 200 mg/dL → Diabetic  
-""")
 
 # Decision Flow Diagram
 if st.checkbox("Show Decision Flow Diagram"):
@@ -97,7 +74,7 @@ Start
                                       └── Yes → Predict: Not Diabetic (class 0)
 """)
 
-# Threshold Comparison - last
+# Threshold Comparison
 if st.checkbox("Show Model vs Medical Thresholds Comparison"):
     st.subheader("Model vs Medical Thresholds Comparison")
     st.markdown("""
