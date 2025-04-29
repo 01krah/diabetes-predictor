@@ -54,19 +54,6 @@ if st.button("Predict"):
 
     st.info(f"Medical Reference Prediction: {medical_prediction}")
 
-    st.write("""
-    Health Advice
-    - Maintain a healthy diet
-    - Regular physical activity
-    - Monitor blood sugar levels routinely
-    - Consult your doctor for proper medical guidance
-    """)
-
-# Optional: Show example cleaned dataset
-if st.checkbox("Show example cleaned dataset"):
-    data = pd.read_csv("cleaned_data.csv")
-    st.dataframe(data.head())
-
 st.write("---")
 
 # Medical Reference Information
@@ -122,4 +109,3 @@ if st.checkbox("Show Model vs Medical Thresholds Comparison"):
     """)
 
     st.write("Our model predicts diabetes at slightly higher HbA1c and Blood Glucose levels compared to standard medical thresholds, and includes Age for further refinement.")
-
